@@ -35,6 +35,7 @@ object WildFireAnalysis {
           // Convert x,y to geometry for mapping
           val wildDF = fireDF.selectExpr("*", "ST_CreatePoint(x, y) AS geometry")
           val fireRDD: SpatialRDD = wildDF.selectExpr("x", "y", "acq_date", "cast(split(frp, ',')[0] AS double) frp", "acq_time", "geometry").toSpatialRDD
+          // Match fireRDD geometry to countriesRDD to get location name of wildfire
           val countiesRDD: SpatialRDD = sparkContext.shapefile("tl_2018_us_county.zip")
           val countyFiresRDD: RDD[(IFeature, IFeature)] = fireRDD.spatialJoin(countiesRDD)
           val countyFire: DataFrame = countyFiresRDD.map({case (county, fire) => Feature.append(county, fire.getAs[String]("GEOID"), "County")}).toDataFrame(sparkSession)
