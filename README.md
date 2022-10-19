@@ -10,7 +10,7 @@
 This project analyzes a dataset the represents the wildfire occurrences in the US. The dataset contains a total of 18 million points. However, we analyzed with only a subset of the data in California. Furthermore, several subsets of the data of sizes, 1K, 10K, and 100K, will be tested on to expedite the development.
 
  
-*The regions have changed over the years so data may only appear for certain dates per region.*  
+
 # Data Structure
 
 |                  x|                 y|  acq_date| frp| acq_time|County|
